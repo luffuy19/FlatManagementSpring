@@ -99,15 +99,15 @@ body {
 	<div id="loginModal" class="modal">
 		<div class="modal-content form-container">
 			<h2>Login</h2>
-			<form action="LoginServlet" method="post">
+			<form action="/user/login" method="post">
 				<div class="form-group">
 					<label for="loginEmail">Email address</label> <input type="email"
-						class="form-control" id="loginEmail" name="loginEmail"
+						class="form-control" id="loginEmail" name="email"
 						placeholder="Enter email">
 				</div>
 				<div class="form-group">
 					<label for="loginPassword">Password</label> <input type="password"
-						class="form-control" id="loginPassword" name="loginPassword"
+						class="form-control" id="loginPassword" name="password"
 						placeholder="Password">
 				</div>
 				<!-- Error Message -->
@@ -132,7 +132,7 @@ body {
 	<div id="registerModal" class="modal">
 		<div class="modal-content form-container">
 			<h2>Register</h2>
-			<form action="Registeration" method="post">
+			<form action="/user/register" method="post">
 				<div class="form-group">
 					<label for="registerEmail">Email address</label> <input
 						type="email" class="form-control" id="registerEmail"

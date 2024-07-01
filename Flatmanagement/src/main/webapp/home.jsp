@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.chainsys.model.User"%>
-<%@ page import="javax.servlet.http.HttpSession"%>
+<%@ page import="com.chainsys.flatmanagement.model.User"%>
+<%@ page import="jakarta.servlet.http.HttpSession"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,13 +140,10 @@ h2 {
 <body>
 	<%
 	HttpSession s = request.getSession(false);
-	if (session == null || s.getAttribute("users")==null) {
-		response.sendRedirect("index.jsp");
-	}
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 	response.setHeader("Expires", "0"); // Proxies
-	User users=(User) s.getAttribute("users");
+	User users=(User) s.getAttribute("user");
 	if (users.getRole().equals("admin")) {
 	%>
     <div class="sidebar">
