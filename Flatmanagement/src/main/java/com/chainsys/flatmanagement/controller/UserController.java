@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.flatmanagement.Service.UserService;
-import com.chainsys.flatmanagement.dao.UserDao;
+import com.chainsys.flatmanagement.dao.impl1.UserImpl;
 import com.chainsys.flatmanagement.model.User;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class UserController {
 	UserService userService;
 	
 	@Autowired
-	UserDao userDao;
+	UserImpl userDao;
 	
 	@GetMapping("/home")
 	public String homePage() {
@@ -64,16 +64,14 @@ public class UserController {
         user.setPassword(password);
 
         try {
-            if (userDao.registerDao(user)==1) {
+            if (userService.insertUser(user)==1) {
                 return "redirect:/index.jsp";
             } else {
-                redirectAttributes.addFlashAttribute("error", "Registration failed");
-                return "redirect:/register.jsp";
+                return "redirect:/index.jsp?alert=Already Exits" ;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "An error occurred during registration");
-            return "redirect:/register.jsp";
+            return "redirect:/index.jsp?alert=An error occurred during registration";
         }
     }
 } 

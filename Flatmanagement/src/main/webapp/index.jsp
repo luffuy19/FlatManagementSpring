@@ -148,6 +148,16 @@ body {
 						type="password" class="form-control" id="registerConfirmPassword"
 						name="registerConfirmPassword" placeholder="Confirm Password">
 				</div>
+				<%
+				error = request.getParameter("alert");
+				%>
+				<%
+				if (error != null) {
+				%>
+				<div class="alert alert-danger" role="alert"><%= error %></div>
+				<%
+				}
+				%>
 				<button type="submit" class="btn btn-primary">Register</button>
 				<button type="button" class="btn btn-secondary mt-2"
 					onclick="hideModal('registerModal')">Back</button>
@@ -173,6 +183,12 @@ body {
 			const params = new URLSearchParams(window.location.search);
 			if (params.has('error')) {
 				showModal('loginModal');
+			}
+		}
+		window.onload = function() {
+			const params = new URLSearchParams(window.location.search);
+			if (params.has('alert')) {
+				showModal('registerModal');
 			}
 		}
 	</script>

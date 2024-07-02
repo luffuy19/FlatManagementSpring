@@ -1,12 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.chainsys.model.User"%>
+<%@ page import="com.chainsys.flatmanagement.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>InamManagement</title>
-<!-- Bootstrap CSS -->
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <style>
 body {
@@ -123,7 +122,7 @@ h2 {
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 	response.setHeader("Expires", "0"); // Proxies
-	User users=(User) s.getAttribute("users");
+	User users=(User) s.getAttribute("user");
 	if(users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
@@ -170,7 +169,7 @@ h2 {
 		<div class="container-fluid">
 			<div class="container mt-5" id="addTenant" style="display: block;">
 				<h2>Tenant Information Form</h2>
-				<form class="needs-validation"  action="TenantServlet" method="post" enctype="multipart/form-data" >
+				<form class="needs-validation"  action="/tenant/addTenant" method="post" enctype="multipart/form-data" >
 					<div class="mb-3">
 						<label for="name" class="form-label">Name</label> 
 						<input type="text" class="form-control" id="name" name="userName" required>
