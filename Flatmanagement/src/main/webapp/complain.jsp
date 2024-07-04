@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.chainsys.model.Complain"%>
-<%@ page import="com.chainsys.model.Employee"%>
-<%@ page import="com.chainsys.model.Task"%>
-<%@ page import="com.chainsys.model.User"%>
-<%@ page import="com.chainsys.dto.*"%>
+<%@ page import="com.chainsys.flatmanagement.model.*"%>
 <%
+ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+UserDAO userDAO = (UserDAO) context.getBean("userDao");
 TrancistionDto dto = new TrancistionDto();
 List<Complain> complaints = (List<Complain>) dto.getAllComplaints();
 List<Employee> employees = (List<Employee>) dto.getAllEmployees();

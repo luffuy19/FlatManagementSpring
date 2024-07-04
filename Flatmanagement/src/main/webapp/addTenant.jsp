@@ -169,7 +169,7 @@ h2 {
 		<div class="container-fluid">
 			<div class="container mt-5" id="addTenant" style="display: block;">
 				<h2>Tenant Information Form</h2>
-				<form class="needs-validation"  action="/tenant/addTenant" method="post" enctype="multipart/form-data" >
+				<form class="needs-validation"  action="/addTenant" method="post" enctype="multipart/form-data" >
 					<div class="mb-3">
 						<label for="name" class="form-label">Name</label> 
 						<input type="text" class="form-control" id="name" name="userName" required>

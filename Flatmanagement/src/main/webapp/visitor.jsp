@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.chainsys.model.Visitor"%>
+<%@ page import="com.chainsys.flatmanagement.model.Visitor"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.util.Date"%>
 <!DOCTYPE html>
@@ -211,7 +211,7 @@ h2 {
 	<div class="content">
 		<div class="container-fluid">
 			<div class="container mt-5">
-				<form action="Visitor" method="get">
+				<form action="/viewVisitor" method="get">
 					<div class="btn-group btn-group-toggle" data-toggle="buttons">
 						<label class="btn btn-primary"> <input type="radio"
 							name="options" id="option3" value="1" autocomplete="off">Today
@@ -294,7 +294,7 @@ h2 {
 			</div>
 			<div id="inVisitorFormContainer" class="form-container hidden">
 				<form id="visitorForm" class="needs-validation"
-					action="VisitorServlet" method="post" novalidate>
+					action="/checkIn" method="post" novalidate>
 					<h2 class="text-center">Add New Visitor</h2>
 					<div class="form-group">
 						<label for="visitorName">Visitor Name:</label> <input type="text"
@@ -338,7 +338,7 @@ h2 {
 			</div>
 			<div id="outVisitorFormContainer" class="form-container hidden">
 				<form id="outVisitorForm" class="needs-validation"
-					action="VisitorServlet" method="post">
+					action="/checkOut" method="post">
 					<input type="hidden" id="visitorId" name="visitorId">
 					<div class="form-group">
 						<label for="outDate">Out Date:</label> <input type="date"
@@ -412,7 +412,7 @@ h2 {
 	$(document).ready(function() {
         $('input[name="options"]').on('change', function() {
             var selectedOption = $(this).val();
-            window.location.href = 'VisitorServlet?checkIn=C&options=' + selectedOption;
+            window.location.href = '/viewVisitor?checkIn=C&options=' + selectedOption;
         });
     });			
     </script>

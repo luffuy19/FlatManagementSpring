@@ -163,7 +163,7 @@ h2 {
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
-                <a class="nav-link" href="VisitorServlet" data-target="visitors">Visitors</a>
+                <a class="nav-link" href="/viewVisitor" data-target="visitors">Visitors</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/complain.png" alt="Complains" />
