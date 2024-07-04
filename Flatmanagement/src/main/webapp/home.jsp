@@ -151,7 +151,7 @@ h2 {
         <ul class="nav flex-column">
             <li class="nav-item">
                 <img width="30" height="30" src="img/search.png" alt="Profile" />
-                <a class="nav-link active" href="SearchTenantServlet" data-target="profile">View Tenant</a>
+                <a class="nav-link active" href="/search?type=1" data-target="profile">View Tenant</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/addicon.png" alt="Add Tenant" />
@@ -159,7 +159,7 @@ h2 {
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
-                <a class="nav-link" href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a>
+                <a class="nav-link" href="/search?type=2" data-target="addEBBill">Add EB-Bill</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
@@ -190,7 +190,7 @@ h2 {
         <ul class="nav flex-column">
             <li class="nav-item">
                 <img width="30" height="30" src="img/profileicon.png" alt="Profile" />
-                <a class="nav-link active" href="SearchTenantServlet" data-target="profile">Profile</a>
+                <a class="nav-link active" href="/tenant/search" data-target="profile">Profile</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/eb.png" alt="EB Bill" />

@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chainsys.flatmanagement.dao.TenantDao;
+import com.chainsys.flatmanagement.mapper.TenantRowMapper;
+import com.chainsys.flatmanagement.model.EbBill;
 import com.chainsys.flatmanagement.model.Tenant;
 import com.chainsys.flatmanagement.model.User;
 
@@ -54,5 +56,37 @@ public class TenantImpl implements TenantDao {
         }
         return 0;
 	}
+	public List<Tenant> getAllTenants() {
+        String sql = "SELECT id, name, phone_no, email, aadhaar_number, photo, family_members, flat_type, flat_floor, room_no, advance_amount, advance_status, rent_amount, rent_amount_status, eb_bill, eb_bill_status, date_of_joining, date_of_ending, delete_user, users_id, created_at " +
+                     "FROM users_details " +
+                     "WHERE delete_user = 0";
+        return jdbcTemplate.query(sql, new TenantRowMapper());
+    }
+	public void deleteTenant(int tenantId) {
+        String sql = "UPDATE users_details SET delete_user = ? WHERE id = ?";
+        try {
+            jdbcTemplate.update(sql, 1, tenantId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	public EbBill addEbBill(int id, int newEbBill, String newEbBillStatus) throws Exception {
+        String query = "UPDATE users_details SET eb_bill = ?, eb_bill_status = ? WHERE id = ?";
+        try {
+            jdbcTemplate.update(query, newEbBill, newEbBillStatus, id);
+            return new EbBill(newEbBill, newEbBillStatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Error updating EB bill", e);
+        }
+    }
+	@SuppressWarnings("deprecation")
+	public List<Tenant> searchTenants(String query) {
+        String sql = "SELECT * FROM users_details WHERE delete_user = 0 AND (" +
+                     "name LIKE ? OR phone_no LIKE ? OR email LIKE ? OR flat_type LIKE ? OR flat_floor LIKE ?)";
+        String queryParam = "%" + query + "%";
+        Object[] params = { queryParam, queryParam, queryParam, queryParam, queryParam };
+        return jdbcTemplate.query(sql, params, new TenantRowMapper());
+    }
 
 }

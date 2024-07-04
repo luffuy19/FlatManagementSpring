@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.chainsys.model.Tenant"%>
+<%@ page import="com.chainsys.flatmanagement.model.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.chainsys.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,62 +131,56 @@ h2 {
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 	response.setHeader("Expires", "0"); // Proxies
-	User users = (User) s.getAttribute("users");
+	User users = (User) s.getAttribute("user");
 	if (users.getRole().equals("admin"))
 	%>
 	<div class="sidebar">
 		<img style="padding-bottom: 30px;" width="230" height="150"
 			src="./img/logo.png" alt=""> <br>
 		<ul class="nav flex-column">
-			<li class="nav-item">
-                <img width="30" height="30" src="img/search.png" alt="Profile" />
-                <a class="nav-link active" href="SearchTenantServlet" data-target="profile">View Tenant</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/addicon.png" alt="Add Tenant" />
-                <a class="nav-link" href="addTenant.jsp">Add Tenant</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
-                <a class="nav-link" href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
-                <a class="nav-link" href="VisitorServlet" data-target="visitors">Visitors</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/complain.png" alt="Complains" />
-                <a class="nav-link" href="complain.jsp" data-target="complains">Complains</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/chat.png" alt="chat" />
-                <a class="nav-link" href="chat.jsp" data-target="chat">chat</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/event.png" alt="Events" />
-                <a class="nav-link" href="event.jsp" data-target="addEvents">Add Events</a>
-            </li>
-            <li class="nav-item">
-                <img width="30" height="30" src="img/logout.png" alt="Logout" />
-                <a class="nav-link" href="LogoutServlet">Log-Out</a>
-            </li>
-        </ul>
-    </div>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/search.png" alt="Profile" /> <a class="nav-link active"
+				href="SearchTenantServlet" data-target="profile">View Tenant</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/addicon.png" alt="Add Tenant" /> <a class="nav-link"
+				href="addTenant.jsp">Add Tenant</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
+				href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/visitor.png" alt="Visitors" /> <a class="nav-link"
+				href="VisitorServlet" data-target="visitors">Visitors</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/complain.png" alt="Complains" /> <a class="nav-link"
+				href="complain.jsp" data-target="complains">Complains</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/chat.png" alt="chat" /> <a class="nav-link"
+				href="chat.jsp" data-target="chat">chat</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/event.png" alt="Events" /> <a class="nav-link"
+				href="event.jsp" data-target="addEvents">Add Events</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/logout.png" alt="Logout" /> <a class="nav-link"
+				href="LogoutServlet">Log-Out</a></li>
+		</ul>
+	</div>
 
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row mt-3">
 				<div class="col-md-6">
-					<form action="EBbillServlet" method="post">
+					<form action="/searchTenants?type=2" method="get">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="search-addon"><i
-									class="fa fa-search"></i>
-								</span>
+									class="fa fa-search"></i> </span>
 							</div>
 							<input type="text" name="query" class="form-control"
 								placeholder="Search" aria-label="Search"
-								aria-describedby="search-addon">
+								aria-describedby="search-addon"> 
+							<input type="hidden"
+								name="type" value="2" class="form-control" placeholder="Search"
+								aria-label="Search" aria-describedby="search-addon">
 						</div>
 				</div>
 				<div class="col-md-3">
@@ -199,138 +192,134 @@ h2 {
 			</div>
 			<div class="container tenant-info">
 				<!-- Form for deleting tenants -->
-				<form action="PaymentServlet" method="post">
-					<!-- Display search results here -->
-					<%
-					List<Tenant> tenantList = (List<Tenant>) request.getAttribute("tenantList");
-					Integer currentPageObj = (Integer) request.getAttribute("currentPage");
-					int currentPage = (currentPageObj != null) ? currentPageObj.intValue() : 1;
-					Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
-					int totalPages = (totalPagesObj != null) ? totalPagesObj.intValue() : 1;
-					String query = (String) request.getAttribute("query");
+				<!-- Display search results here -->
+				<%
+				List<Tenant> tenantList = (List<Tenant>) request.getAttribute("tenantList");
+				Integer currentPageObj = (Integer) request.getAttribute("currentPage");
+				int currentPage = (currentPageObj != null) ? currentPageObj.intValue() : 1;
+				Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
+				int totalPages = (totalPagesObj != null) ? totalPagesObj.intValue() : 1;
+				String query = (String) request.getAttribute("query");
 
-					if (tenantList != null && !tenantList.isEmpty()) {
-						for (Tenant tenant : tenantList) {
-					%>
-					<div class="tenant-header mb-4">
-						<img
-							src="data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(tenant.getPhoto())%>"
-							alt="Tenant" class="img-thumbnail" id="tenantPhoto">
-						<div>
-							<h2><%=tenant.getName()%></h2>
-							<div class="info-item">
-								<strong>Phone Number:</strong> <span><%=tenant.getPhoneNo()%></span>
-							</div>
+				if (tenantList != null && !tenantList.isEmpty()) {
+					for (Tenant tenant : tenantList) {
+				%>
+				<div class="tenant-header mb-4">
+					<img
+						src="data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(tenant.getPhoto())%>"
+						alt="Tenant" class="img-thumbnail" id="tenantPhoto">
+					<div>
+						<h2><%=tenant.getName()%></h2>
+						<div class="info-item">
+							<strong>Phone Number:</strong> <span><%=tenant.getPhoneNo()%></span>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12 mb-4">
-							<div class="card">
-								<div class="card-header">Personal Information</div>
-								<div class="card-body">
-									<div class="info-item">
-										<strong>Aadhaar Number:</strong> <span><%=tenant.getAadhaarNumber()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Email:</strong> <span><%=tenant.getEmail()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Flat Type:</strong> <span><%=tenant.getFlatType()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Flat Floor:</strong> <span><%=tenant.getFlatFloor()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Family Members:</strong> <span><%=tenant.getFamilyNembers()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Date of Joining:</strong> <span><%=tenant.getDateOfJoining()%></span>
-									</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 mb-4">
+						<div class="card">
+							<div class="card-header">Personal Information</div>
+							<div class="card-body">
+								<div class="info-item">
+									<strong>Aadhaar Number:</strong> <span><%=tenant.getAadhaarNumber()%></span>
 								</div>
-							</div>
-						</div>
-						<div class="col-md-12 mb-4">
-							<div class="card">
-								<div class="card-header">Financial Information</div>
-								<div class="card-body">
-									<div class="info-item">
-										<strong>Advance Amount:</strong> <span><%=tenant.getAdvanceAmount()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Advance Status:</strong> <span><%=tenant.getAdvanceStatus()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Rent Amount:</strong> <span><%=tenant.getRentAmount()%></span>
-									</div>
-									<div class="info-item">
-										<strong>Rent Status:</strong> <span><%=tenant.getRentAmountStatus()%></span>
-									</div>
-									<div class="info-item">
-										<strong>EB Bill:</strong> <span><%=tenant.getEbBill()%></span>
-									</div>
-									<div class="info-item">
-										<strong>EB Bill Status:</strong> <span><%=tenant.getEbBillStatus()%></span>
-									</div>
+								<div class="info-item">
+									<strong>Email:</strong> <span><%=tenant.getEmail()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Flat Type:</strong> <span><%=tenant.getFlatType()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Flat Floor:</strong> <span><%=tenant.getFlatFloor()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Family Members:</strong> <span><%=tenant.getFamilyNembers()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Date of Joining:</strong> <span><%=tenant.getDateOfJoining()%></span>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Add EB Bill Button Trigger -->
-					<div class="mb-4">
-						<input type="hidden" value="<%=tenant.getId()%>" name="tenantId"
-							id="tenantId<%=tenant.getId()%>">
-						<button type="button" class="btn btn-dark" data-toggle="modal"
-							data-target="#ebBillModal<%=tenant.getId()%>">Add EB
-							Bill</button>
-					</div>
-
-					<!-- EB Bill Modal Form -->
-					<div class="modal fade" id="ebBillModal<%=tenant.getId()%>"
-						tabindex="-1" role="dialog"
-						aria-labelledby="ebBillModalLabel<%=tenant.getId()%>"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title"
-										id="ebBillModalLabel<%=tenant.getId()%>">
-										Add EB Bill for
-										<%=tenant.getName()%>
-									</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true"></span>
-									</button>
+					<div class="col-md-12 mb-4">
+						<div class="card">
+							<div class="card-header">Financial Information</div>
+							<div class="card-body">
+								<div class="info-item">
+									<strong>Advance Amount:</strong> <span><%=tenant.getAdvanceAmount()%></span>
 								</div>
-								<form action="EBbillServlet" method="post">
-									<div class="modal-body">
-										<input type="hidden" name="tenantId"
-											value="<%=tenant.getId()%>"> <input type="hidden"
-											name="query" value="<%=query%>">
-										<div class="form-group">
-											<label for="unit">Unit:</label> <input type="number"
-												class="form-control" id="unit" name="unit" required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
-								</form>
+								<div class="info-item">
+									<strong>Advance Status:</strong> <span><%=tenant.getAdvanceStatus()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Rent Amount:</strong> <span><%=tenant.getRentAmount()%></span>
+								</div>
+								<div class="info-item">
+									<strong>Rent Status:</strong> <span><%=tenant.getRentAmountStatus()%></span>
+								</div>
+								<div class="info-item">
+									<strong>EB Bill:</strong> <span><%=tenant.getEbBill()%></span>
+								</div>
+								<div class="info-item">
+									<strong>EB Bill Status:</strong> <span><%=tenant.getEbBillStatus()%></span>
+								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+				<!-- Add EB Bill Button Trigger -->
+				<div class="mb-4">
+					<input type="hidden" value="<%=tenant.getId()%>" name="tenantId"
+						id="tenantId<%=tenant.getId()%>">
+					<button type="button" class="btn btn-dark" data-toggle="modal"
+						data-target="#ebBillModal<%=tenant.getId()%>">Add EB Bill</button>
+				</div>
 
-					<%
-					}
-					} else {
-					%>
-					<p>No tenants found.</p>
-					<%
-					}
-					%>
-				</form>
+				<!-- EB Bill Modal Form -->
+				<div class="modal fade" id="ebBillModal<%=tenant.getId()%>"
+					tabindex="-1" role="dialog"
+					aria-labelledby="ebBillModalLabel<%=tenant.getId()%>"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="ebBillModalLabel<%=tenant.getId()%>">
+									Add EB Bill for
+									<%=tenant.getName()%>
+								</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true"></span>
+								</button>
+							</div>
+							<form action="/addEbBill?page=<%=currentPage%>" method="post">
+								<div class="modal-body">
+									<input type="hidden" name="tenantId"
+										value="<%=tenant.getId()%>"> <input type="hidden"
+										name="query" value="<%=query%>">
+									<div class="form-group">
+										<label for="unit">Unit:</label> <input type="number"
+											class="form-control" id="unit" name="unit" required>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<%
+				}
+				} else {
+				%>
+				<p>No tenants found.</p>
+				<%
+				}
+				%>
 
 				<!-- Pagination Controls -->
 				<nav aria-label="Page navigation example">
@@ -339,7 +328,7 @@ h2 {
 						if (currentPage > 1) {
 						%>
 						<li class="page-item"><a class="page-link"
-							href="SearchTenantServlet?query=<%=query%>&page=<%=currentPage - 1%>"
+							href="/search?page=<%=currentPage - 1%>&type=2"
 							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 						</a></li>
 						<%
@@ -347,16 +336,15 @@ h2 {
 						for (int i = 1; i <= totalPages; i++) {
 						%>
 						<li class="page-item <%=(i == currentPage) ? "active" : ""%>">
-							<a class="page-link"
-							href="EBbillServlet?query=<%=query%>&page=<%=i%>"><%=i%></a>
+							<a class="page-link" href="search?page=<%=i%>&type=2"><%=i%></a>
 						</li>
 						<%
 						}
 						if (currentPage < totalPages) {
 						%>
 						<li class="page-item"><a class="page-link"
-							href="EBbillServlet?query=<%=query%>&page=<%=currentPage + 1%>"
-							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							href="/search?page=<%=currentPage + 1%>&type=2" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
 						</a></li>
 						<%
 						}
