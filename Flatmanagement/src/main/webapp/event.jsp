@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page import="com.chainsys.model.Event"%>
+<%@ page import="com.chainsys.flatmanagement.model.Event"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.chainsys.model.User"%>
+<%@ page import="com.chainsys.flatmanagement.model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,7 +171,7 @@ h2 {
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 	response.setHeader("Expires", "0"); // Proxies
-	User users = (User) s.getAttribute("users");
+	User users = (User) s.getAttribute("user");
 	if (users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
@@ -235,7 +235,7 @@ h2 {
 												<p class="card-text">
 													<small class="text-muted">Event Date: <%=event.getDate()%></small>
 												</p>
-												<form action="EventServlet" method="post">
+												<form action="/events/delete" method="post">
 													<input type="hidden" name="action" value="delete">
 													<input type="hidden" name="eventId"
 														value="<%=event.getId()%>">
@@ -275,7 +275,7 @@ h2 {
 									</button>
 								</div>
 								<div class="modal-body">
-									<form action="AddEventServlet" method="post" >
+									<form action="/events/add" method="post" >
 										<div class="form-group">
 											<label for="eventTitle">Title</label> <input type="text"
 												class="form-control" id="eventTitle" name="eventTitle"

@@ -2,6 +2,7 @@ package com.chainsys.flatmanagement.controller;
 
 import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,9 @@ import com.chainsys.flatmanagement.model.Employee;
 import com.chainsys.flatmanagement.model.User;
 import com.chainsys.flatmanagement.validation.Validation;
 
+@Controller
 public class ComplainController {
+	
 	@Autowired
     private ComplainDao complainDao;
 
@@ -30,9 +33,9 @@ public class ComplainController {
 //    }
 
     @PostMapping("/addEmployee")
-    public String addEmployee(@RequestParam String name, 
-                              @RequestParam String phoneNumber, 
-                              @RequestParam String department, 
+    public String addEmployee(@RequestParam("name") String name, 
+                              @RequestParam("phonenumber") String phoneNumber, 
+                              @RequestParam("department") String department, 
                               Model model) throws SQLException {
         if (!Validation.isValidName(name) || !Validation.isValidPhoneNo(phoneNumber)) {
             model.addAttribute("error", "Validation Error");
@@ -84,20 +87,18 @@ public class ComplainController {
     }
 
     @PostMapping("/addComplaint")
-    public String addComplaint(@RequestParam String complainType, 
-                               @RequestParam String comments, 
-                               @RequestParam String complainDate, 
-                               @RequestParam String floorNo, 
-                               @RequestParam String roomNo, 
-                               @SessionAttribute("users") User user, 
+    public String addComplaint(@RequestParam("complainType") String complainType, 
+                               @RequestParam("comments") String comments, 
+                               @RequestParam("complainDate") String complainDate,  
+                               @SessionAttribute("user") User user, 
                                Model model) throws SQLException {
         if (!Validation.isValidDate(complainDate)) {
             model.addAttribute("error", "Validation Error");
             return "error";
         }
-        Complain complain = new Complain(0, complainType, comments, complainDate, "Pending", user.getId(), floorNo, roomNo);
+        Complain complain = new Complain(0, complainType, comments, complainDate, "Pending", user.getId(),null,null);
             complainDao.addComplaint(complain);
-            return "complain"; // Redirect to view complaints
+            return "complain.jsp"; // Redirect to view complaints
         
     }
 }

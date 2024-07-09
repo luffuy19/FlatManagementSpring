@@ -2,13 +2,15 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.chainsys.flatmanagement.model.*"%>
+<%@ page import="com.chainsys.flatmanagement.dao.impl1.*"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%
 ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-UserDAO userDAO = (UserDAO) context.getBean("userDao");
-TrancistionDto dto = new TrancistionDto();
-List<Complain> complaints = (List<Complain>) dto.getAllComplaints();
-List<Employee> employees = (List<Employee>) dto.getAllEmployees();
-List<Task> tasks = (List<Task>) dto.getAllTasks();
+ComapainImpl complainImpl = (ComapainImpl) context.getBean("complainDao");
+List<Complain> complaints = (List<Complain>) complainImpl.getAllComplaints();
+List<Employee> employees = (List<Employee>) complainImpl.getAllEmployees();
+List<Task> tasks = (List<Task>) complainImpl.getAllTasks();
 %>
 <!DOCTYPE html>
 <html lang="en" >
@@ -76,14 +78,14 @@ h2 {
 <body>
 	<%
 	HttpSession s = request.getSession(false);
-	if (session == null) {
+	if (s == null) {
 		response.sendRedirect("index.jsp");
 		return;
 	}
 	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
 	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 	response.setHeader("Expires", "0"); // Proxies
-	User users=(User) s.getAttribute("users");
+	User users=(User) s.getAttribute("user");
 	if (users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
@@ -189,7 +191,7 @@ h2 {
 								</button>
 							</div>
 							<div class="modal-body">
-								<form action="EmployeeServlet" method="post">
+								<form action="/assignWork" method="post">
 									<div class="form-group">
 										<label for="workerSelect">Select Worker</label> <select
 											class="form-control" id="workerSelect" name="workerId"
@@ -331,14 +333,14 @@ h2 {
 							</button>
 						</div>
 						<div class="modal-body">
-							<form action="EmployeeServlet" method="post">
+							<form action="addEmployee" method="post">
 								<div class="form-group">
 									<label for="employeeName">Name</label> <input type="text"
 										class="form-control" id="employeeName" name="name" required>
 								</div>
 								<div class="form-group">
 									<label for="employeePhone">Phone</label> <input type="text"
-										class="form-control" id="employeePhone" name="phone_number"
+										class="form-control" id="employeePhone" name="phonenumber"
 										required>
 								</div>
 								<div class="form-group">
@@ -420,10 +422,10 @@ h2 {
 			<div class="container mt-5">
 				<div class="container">
 					<h2 class="form-title text-primary">Raise a Complaint</h2>
-					<form id="complaintForm" action="EmployeeServlet" method="post">
+					<form id="complaintForm" action="/addComplaint" method="post">
 						<div class="form-group">
 							<label for="complainType">Complain Type</label> <select
-								class="form-control" id="complainType" name="complain_type"
+								class="form-control" id="complainType" name="complainType"
 								required>
 								<option value="" disabled selected>Select complain type</option>
 								<option value="Plumbing">Plumbing</option>
@@ -441,7 +443,7 @@ h2 {
 						<div class="form-group">
 							<label for="complainDate">Complain Date</label> <input
 								type="date" class="form-control" id="complainDate"
-								name="complain_date" required>
+								name="complainDate" required>
 						</div>
 						<input type="hidden" value="addTask" name="action">
 						<button type="submit" class="btn btn-primary btn-block">Submit
@@ -548,7 +550,7 @@ h2 {
 
         function updateComplaintStatus(complaintId, status,action) {
         	$.ajax({
-                url: 'EmployeeServlet',
+                url: '/deleteTask',
                 type: 'POST',
                 data: { complaintId: complaintId,status: status,action: action },
                 success: function(response) {
@@ -578,7 +580,7 @@ h2 {
         function deleteEmployee(employeeId, action) {
             if (confirm('Are you sure you want to delete this employee?')) {
                 $.ajax({
-                    url: 'EmployeeServlet',
+                    url: '/deleteEmployee',
                     type: 'POST',
                     data: { employeeId: employeeId, action: action },
                     success: function(response) {

@@ -13,6 +13,7 @@
 <style>
 /* Custom CSS for the background image */
 body {
+	postion:fixed;
 	background-image: url('img/e.jpg'); /* Replace with your image URL */
 	background-size: cover;
 	background-position: center;
