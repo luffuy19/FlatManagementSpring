@@ -194,7 +194,7 @@ h2 {
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
-                <a class="nav-link" href="checkPayment" data-target="addEBBill">payment</a>
+                <a class="nav-link" href="/payment" data-target="addEBBill">payment</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/complain.png" alt="Complains" />

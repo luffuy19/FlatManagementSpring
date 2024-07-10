@@ -20,17 +20,6 @@ public class ComplainController {
 	@Autowired
     private ComplainDao complainDao;
 
-//    @GetMapping("/employees")
-//    public String getAllEmployees(Model model) {
-//        try {
-//            List<Employee> employees = complainDao.getAllEmployees();
-//            model.addAttribute("employees", employees);
-//            return "employee"; // Return to employee.jsp
-//        } catch (ClassNotFoundException | SQLException e) {
-//            e.printStackTrace();
-//            return "error";
-//        }
-//    }
 
     @PostMapping("/addEmployee")
     public String addEmployee(@RequestParam("name") String name, 
@@ -65,7 +54,7 @@ public class ComplainController {
 
     @PostMapping("/assignWork")
     public String assignWork(@RequestParam int workerId, 
-                             @RequestParam int complaintId, 
+                             @RequestParam int complaintId,
                              Model model) {
         try {
             complainDao.addTask(workerId, complaintId);

@@ -49,6 +49,9 @@ public class Tenant {
 		this.deleteUser = deleteUser;
 		this.userId = userId;
 	}
+	public Tenant() {
+		
+	}
 	public int getId() {
 		return id;
 	}
@@ -108,6 +111,67 @@ public class Tenant {
 	}
 	public int getUserId() {
 		return userId;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setAadhaarNumber(String aadhaarNumber) {
+		this.aadhaarNumber = aadhaarNumber;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	public void setFamilyNembers(int familyNembers) {
+		this.familyNembers = familyNembers;
+	}
+	public void setFlatType(String flatType) {
+		this.flatType = flatType;
+	}
+	public void setFlatFloor(String flatFloor) {
+		this.flatFloor = flatFloor;
+	}
+	public void setRoomNo(String roomNo) {
+		this.roomNo = roomNo;
+	}
+	public void setAdvanceAmount(int advanceAmount) {
+		this.advanceAmount = advanceAmount;
+	}
+	public void setAdvanceStatus(String advanceStatus) {
+		this.advanceStatus = advanceStatus;
+	}
+	public void setRentAmount(int rentAmount) {
+		this.rentAmount = rentAmount;
+	}
+	public void setRentAmountStatus(String rentAmountStatus) {
+		this.rentAmountStatus = rentAmountStatus;
+	}
+	public void setEbBill(int ebBill) {
+		this.ebBill = ebBill;
+	}
+	public void setEbBillStatus(String ebBillStatus) {
+		this.ebBillStatus = ebBillStatus;
+	}
+	public void setDateOfJoining(String dateOfJoining) {
+		this.dateOfJoining = dateOfJoining;
+	}
+	public void setDateOfEnding(String dateOfEnding) {
+		this.dateOfEnding = dateOfEnding;
+	}
+	public void setDeleteUser(String deleteUser) {
+		this.deleteUser = deleteUser;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String toString() {
 		return "Tenant [id=" + id + ", name=" + name + ", phoneNo=" + phoneNo + ", email=" + email + ", aadhaarNumber="

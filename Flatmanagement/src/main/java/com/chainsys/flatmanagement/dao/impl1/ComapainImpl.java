@@ -29,6 +29,10 @@ public class ComapainImpl implements ComplainDao {
         String query = "SELECT id, name, phone_number, department FROM employee";
         return jdbcTemplate.query(query, new EmployeeRowMapper());
     }
+    public List<Employee> getAllEmployees(String complainType) throws SQLException {
+        String query = "SELECT id, name, phone_number, department FROM employee WHERE department"+complainType;
+        return jdbcTemplate.query(query, new EmployeeRowMapper());
+    }
 
     public int addEmployee(Employee employee) throws SQLException {
         String query = "INSERT INTO employee (name, phone_number, department) VALUES (?, ?, ?)";

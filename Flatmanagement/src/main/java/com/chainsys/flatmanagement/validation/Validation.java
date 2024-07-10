@@ -3,12 +3,12 @@ package com.chainsys.flatmanagement.validation;
 import java.util.regex.Pattern;
 
 public class Validation {
-
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]+$");
+	
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-z0-Z\\s]+$");
     private static final Pattern PHONE_PATTERN = Pattern.compile("^\\d{10}$");
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
     private static final Pattern AADHAAR_PATTERN = Pattern.compile("^\\d{12}$");
-    private static final Pattern ADVANCE_STATUS_PATTERN = Pattern.compile("^(Paid|Unpaid)$");
+    private static final Pattern ADVANCE_STATUS_PATTERN = Pattern.compile("^(Maid|Unpaid)$");
     private static final Pattern FLAT_TYPE_PATTERN = Pattern.compile("^[A-Za-z\\s]+$");
     private static final Pattern FLOOR_NUMBER_PATTERN = Pattern.compile("^\\d+$");
     private static final Pattern ROOM_NUMBER_PATTERN = Pattern.compile("^\\d+$");
