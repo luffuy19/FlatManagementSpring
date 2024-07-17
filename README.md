@@ -84,8 +84,5 @@ Secure and user-friendly interface for tenants to view and make payments for ren
 <span style="color:blue"><strong>Event Management:</strong></span><br>
 Organize and manage community events, sending notifications and updates to all tenants.
 <br>
-<a href="https://docs.google.com/document/d/1hXMZPamW0rlTI1zNgeQqfEBGkl33EXbfEaFWaYBZ_UM/edit?usp=sharing">FlatManagement System User Manual</a><br>
-<a href="https://docs.google.com/presentation/d/1QON9TVj8j_rCrIRO0vFREHJ-epjPGcCE/edit?usp=sharing&ouid=108020917509383443842&rtpof=true&sd=true">FlatManagement System PPT</a>
-
 </body>
 </html>
