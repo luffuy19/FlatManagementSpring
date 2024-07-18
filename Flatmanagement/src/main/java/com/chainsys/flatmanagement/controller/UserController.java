@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.chainsys.flatmanagement.Exception.UserAlreadyExistsException;
+import com.chainsys.flatmanagement.Exception.UserNotRegisterException;
 import com.chainsys.flatmanagement.Service.UserService;
 import com.chainsys.flatmanagement.dao.impl1.UserImpl;
 import com.chainsys.flatmanagement.model.User;
@@ -34,7 +37,7 @@ public class UserController {
 	public String login(
 	        @RequestParam("email") String email,
 	        @RequestParam("password") String password,
-	        HttpSession session) throws ClassNotFoundException, SQLException, IOException {
+	        HttpSession session) throws ClassNotFoundException, SQLException, IOException, UserNotRegisterException {
 
 	    if (!Validation.isValidEmail(email)) {
 	        return "redirect:/index.jsp?error=Invalid email format";
@@ -65,8 +68,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String registerUser(
 	        @RequestParam("registerEmail") String email,
-	        @RequestParam("registerConfirmPassword") String password,
-	        RedirectAttributes redirectAttributes) {
+	        @RequestParam("registerConfirmPassword") String password) throws UserAlreadyExistsException {
 
 	    if (!Validation.isValidEmail(email)) {
 	        return "redirect:/index.jsp?alert=Invalid email format";
@@ -80,16 +82,11 @@ public class UserController {
 	    user.setEmail(email);
 	    user.setPassword(password);
 
-	    try {
-	        if (userService.insertUser(user) == 1) {
-	            return "redirect:/index.jsp";
-	        } else {
-	            return "redirect:/index.jsp?alert=Already Exists";
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return "redirect:/index.jsp?alert=An error occurred during registration";
-	    }
+	    if (userService.insertUser(user) == 1) {
+		    return "redirect:/index.jsp";
+		} else {
+		    return "redirect:/index.jsp?alert=Already Exists";
+		}
 	}
 
 } 

@@ -12,16 +12,11 @@ import com.chainsys.flatmanagement.model.EbBill;
 import com.chainsys.flatmanagement.model.Tenant;
 import com.chainsys.flatmanagement.model.User;
 
-@Repository
+@Repository("tenantImpl")
 public class TenantImpl implements TenantDao {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
-	@Override
-	public List<User> findAllUsers() {
-		return null;
-	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -62,6 +57,13 @@ public class TenantImpl implements TenantDao {
                      "WHERE delete_user = 0";
         return jdbcTemplate.query(sql, new TenantRowMapper());
     }
+	@SuppressWarnings("deprecation")
+	public Tenant getSpecificTenant(int id) {
+        String sql = "SELECT id, name, phone_no, email, aadhaar_number, photo, family_members, flat_type, flat_floor, room_no, advance_amount, advance_status, rent_amount, rent_amount_status, eb_bill, eb_bill_status, date_of_joining, date_of_ending, delete_user, users_id, created_at " +
+                     "FROM users_details " +
+                     "WHERE delete_user = 0 AND users_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{id}, new TenantRowMapper());
+    }
 	public void deleteTenant(int tenantId) {
         String sql = "UPDATE users_details SET delete_user = ? WHERE id = ?";
         try {
@@ -88,5 +90,14 @@ public class TenantImpl implements TenantDao {
         Object[] params = { queryParam, queryParam, queryParam, queryParam, queryParam };
         return jdbcTemplate.query(sql, params, new TenantRowMapper());
     }
-
+	public void updatePhoto(byte[] imageParts, int id) throws ClassNotFoundException {
+        String sql = "UPDATE users_details SET photo=? WHERE users_id=?";
+        
+        int rowsUpdated = jdbcTemplate.update(sql, imageParts, id);
+        if (rowsUpdated > 0) {
+            System.out.println("Photo updated successfully for user ID: " + id);
+        } else {
+            System.out.println("No user found with ID: " + id);
+        }
+    }
 }

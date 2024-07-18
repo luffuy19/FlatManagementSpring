@@ -181,29 +181,34 @@ h1 {
 	boolean hasPaid = (Boolean) request.getAttribute("hasPaid");
 	%>
 	<div class="sidebar">
-		<img src="img/logo.png" alt="Logo" style="padding-bottom: 30px;"
-			width="230" height="150">
-		<ul class="nav flex-column">
-			<li class="nav-item"><img src="img/search.png" alt="Profile"
-				width="30" height="30"> <a class="nav-link active"
-				href="SearchTenantServlet">Search</a></li>
-			<li class="nav-item"><img src="img/eb.png" alt="EB Bill"
-				width="30" height="30"> <a class="nav-link" href="payment.jsp">Payment</a>
-			</li>
-			<li class="nav-item"><img src="img/complain.png" alt="Complains"
-				width="30" height="30"> <a class="nav-link"
-				href="complain.jsp">Complains</a></li>
-			<li class="nav-item"><img src="img/chat.png" alt="Chat"
-				width="30" height="30"> <a class="nav-link" href="chat.jsp">Chat</a>
-			</li>
-			<li class="nav-item"><img src="img/event.png" alt="Events"
-				width="30" height="30"> <a class="nav-link"
-				href="EventServlet">Events</a></li>
-			<li class="nav-item"><img src="img/logout.png" alt="Logout"
-				width="30" height="30"> <a class="nav-link"
-				href="LogoutServlet">Log-Out</a></li>
-		</ul>
-	</div>
+        <img style="padding-bottom: 30px;" width="230" height="150" src="img/logo.png" alt=""> <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <img width="30" height="30" src="img/profileicon.png" alt="Profile" />
+                <a class="nav-link active" href="/search?type=1" data-target="profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
+                <a class="nav-link" href="/payment" data-target="addEBBill">payment</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/complain.png" alt="Complains" />
+                <a class="nav-link" href="complain.jsp" data-target="complains">Complains</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/chat.png" alt="chat" />
+                <a class="nav-link" href="chat.jsp" data-target="chat">chat</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/event.png" alt="Events" />
+                <a class="nav-link" href="/events" data-target="addEvents">Events</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/logout.png" alt="Logout" />
+                <a class="nav-link" href="LogoutServlet">Log-Out</a>
+            </li>
+        </ul>
+    </div>
 
 	<%
 	if (!hasPaid) {

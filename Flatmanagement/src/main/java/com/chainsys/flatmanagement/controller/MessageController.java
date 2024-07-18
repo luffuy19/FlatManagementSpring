@@ -39,7 +39,6 @@ public class MessageController {
         for (Message msg : messages) {
             newLastMessageId = msg.getId();
         }
-        System.out.println(messages.get(0));
         responseMap.put("messages", messages);
         responseMap.put("lastMessageId", newLastMessageId);
 

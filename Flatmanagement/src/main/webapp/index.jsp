@@ -83,9 +83,6 @@ body {
 			</button>
 			<div class="collapse navbar-collapse justify-content-end"
 				id="navbarNav">
-				<ul class="navbar-nav">
-					<!-- Links or other navbar items go here -->
-				</ul>
 				<form class="form-inline my-2 my-lg-0 ml-auto">
 					<button class="btn btn-outline-light" type="button"
 						onclick="showModal('loginModal')">Login</button>

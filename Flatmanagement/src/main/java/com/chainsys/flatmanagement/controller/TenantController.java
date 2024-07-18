@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.chainsys.flatmanagement.Service.TenantService;
 import com.chainsys.flatmanagement.dao.TenantDao;
 import com.chainsys.flatmanagement.model.Tenant;
+import com.chainsys.flatmanagement.model.User;
 import com.chainsys.flatmanagement.validation.Validation;
 
 import jakarta.servlet.annotation.MultipartConfig;
@@ -154,8 +155,8 @@ public class TenantController {
 			@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam("type") String type,
 			Model model) {
 		int limit = 1; // Adjust the number of items per page as needed
-
-		List<Tenant> allTenants = tenantDao.getAllTenants(); // Fetch all tenants and filter
+		System.out.println(query);
+		List<Tenant> allTenants = tenantDao.searchTenants(query); // Fetch all tenants and filter
 		int totalTenants = allTenants.size();
 
 		// Calculate pagination details
@@ -222,4 +223,21 @@ public class TenantController {
 		}
 		 // This should be the name of your view page
 	}
+	@PostMapping("/updatePhoto")
+    public String updatePhoto(HttpSession session, @RequestParam("newPhoto") MultipartFile file) {
+        User user = (User) session.getAttribute("user");
+
+        if (file != null) {
+            try {
+                byte[] imageBytes = file.getBytes();
+                tenantDao.updatePhoto(imageBytes, user.getId());
+                return "search.jsp";
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                return "error";
+            }
+        }
+        return "error";
+    }
 }
+

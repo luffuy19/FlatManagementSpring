@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.chainsys.flatmanagement.model.*"%>
+<%@ page import="com.chainsys.flatmanagement.dao.impl1.*"%>
 <%@ page import="java.util.*"%>
+<%@page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,41 +147,48 @@ h2 {
 	if (users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
-		<img style="padding-bottom: 30px;" width="230" height="150"
-			src="./img/logo.png" alt=""> <br>
-		<ul class="nav flex-column">
-			<li class="nav-item"><img width="30" height="30"
-				src="img/search.png" alt="Profile" /> <a class="nav-link active"
-				href="SearchTenantServlet" data-target="profile">View Tenant</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/addicon.png" alt="Add Tenant" /> <a class="nav-link"
-				href="addTenant.jsp">Add Tenant</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
-				href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/visitor.png" alt="Visitors" /> <a class="nav-link"
-				href="VisitorServlet" data-target="visitors">Visitors</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/complain.png" alt="Complains" /> <a class="nav-link"
-				href="complain.jsp" data-target="complains">Complains</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/chat.png" alt="chat" /> <a class="nav-link"
-				href="chat.jsp" data-target="chat">chat</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/event.png" alt="Events" /> <a class="nav-link"
-				href="event.jsp" data-target="addEvents">Add Events</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/logout.png" alt="Logout" /> <a class="nav-link"
-				href="LogoutServlet">Log-Out</a></li>
-		</ul>
-	</div>
+        <img style="padding-bottom: 30px;" width="230" height="150" src="img/logo.png" alt=""> <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <img width="30" height="30" src="img/search.png" alt="Profile" />
+                <a class="nav-link active" href="/search?type=1" data-target="profile">View Tenant</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/addicon.png" alt="Add Tenant" />
+                <a class="nav-link" href="addTenant.jsp">Add Tenant</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
+                <a class="nav-link" href="/search?type=2" data-target="addEBBill">Add EB-Bill</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
+                <a class="nav-link" href="/viewVisitor" data-target="visitors">Visitors</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/complain.png" alt="Complains" />
+                <a class="nav-link" href="complain.jsp" data-target="complains">Complains</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/chat.png" alt="chat" />
+                <a class="nav-link" href="chat.jsp" data-target="chat">chat</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/event.png" alt="Events" />
+                <a class="nav-link" href="/events" data-target="addEvents">Add Events</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/logout.png" alt="Logout" />
+                <a class="nav-link" href="LogoutServlet">Log-Out</a>
+            </li>
+        </ul>
+    </div>
 
 	<div class="content">
 		<div class="container-fluid">
+		<form action="/search?type=1" method="post">
 			<div class="row mt-3">
 				<div class="col-md-6">
-					<form action="" method="post">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="search-addon"><i
@@ -194,8 +204,8 @@ h2 {
 						<button type="submit" class="btn btn-dark">Search</button>
 					</div>
 				</div>
-				</form>
 			</div>
+			</form>
 			<div class="container tenant-info">
 				<!-- Display search results here -->
 				<%
@@ -205,7 +215,6 @@ h2 {
 				Integer totalPagesObj = (Integer) request.getAttribute("totalPages");
 				int totalPages = (totalPagesObj != null) ? totalPagesObj.intValue() : 1;
 				String query = (String) request.getAttribute("query");
-				System.out.print(tenantList.get(0));
 				if (tenantList != null && !tenantList.isEmpty()) {
 					for (Tenant tenant : tenantList) {
 				%>
@@ -326,7 +335,178 @@ h2 {
 	</div>
 	<%
 	}
+	else {
 	%>
+	<div class="sidebar">
+		<img style="padding-bottom: 30px;" width="230" height="150"
+			src="img/logo.png" alt=""> <br>
+		<ul class="nav flex-column">
+			<li class="nav-item"><img width="30" height="30"
+				src="img/profileicon.png" alt="Profile" /> <a
+				class="nav-link active" href="SearchTenantServlet"
+				data-target="profile">Profile</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
+				href="payment.jsp" data-target="addEBBill">payment</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/complain.png" alt="Complains" /> <a class="nav-link"
+				href="complain.jsp" data-target="complains">Complains</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/chat.png" alt="chat" /> <a class="nav-link"
+				href="chat.jsp" data-target="chat">chat</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/event.png" alt="Events" /> <a class="nav-link"
+				href="EventServlet" data-target="addEvents">Events</a></li>
+			<li class="nav-item"><img width="30" height="30"
+				src="img/logout.png" alt="Logout" /> <a class="nav-link"
+				href="LogoutServlet">Log-Out</a></li>
+		</ul>
+	</div>
+
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<form action="SearchTenantServlet" method="post">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="search-addon"><i
+									class="fa fa-search"></i></span>
+							</div>
+							<input type="text" name="query" class="form-control"
+								placeholder="Search" aria-label="Search"
+								aria-describedby="search-addon">
+						</div>
+					</form>
+				</div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<button type="submit" class="btn btn-dark">Search</button>
+					</div>
+				</div>
+			</div>
+			<div class="container tenant-info">
+				<!-- Display search results here -->
+				<%
+				ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+				TenantImpl tenantImpl = (TenantImpl) context.getBean("tenantImpl");
+				System.out.print(users.getId());
+				Tenant tenant = (Tenant) tenantImpl.getSpecificTenant(users.getId());
+
+				if (tenant != null) {
+				%>
+
+				<div class="tenant-header mb-4">
+					<img
+						src="data:image/jpeg;base64,<%=Base64.getEncoder().encodeToString(tenant.getPhoto())%>"
+						alt="Tenant" class="img-thumbnail" id="tenantPhoto">
+					<div>
+						<h2><%=tenant.getName()%></h2>
+						<div class="info-item">
+							<strong>Phone Number:</strong> <span><%=tenant.getPhoneNo()%></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Edit Photo Modal -->
+			<div class="modal fade" id="editPhotoModal" tabindex="-1"
+				role="dialog" aria-labelledby="editPhotoModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="editPhotoModalLabel">Edit Photo</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<form action="/updatePhoto" method="post"
+							enctype="multipart/form-data">
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="newPhoto">Choose Photo:</label> <input type="file"
+										class="form-control-file" id="newPhoto" name="newPhoto"
+										accept="image/*">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									onclick="hideEditPhotoModal()">Back</button>
+
+								<button type="submit" class="btn btn-primary">Upload</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- Button to trigger Edit Photo Modal -->
+			<button type="button" class="edit btn btn-primary"
+				onclick="$('#editPhotoModal').modal('show')">Edit Photo</button>
+			<br> <br>
+			<div class="row">
+				<div class="col-md-12 mb-4">
+					<div class="card">
+						<div class="card-header">Personal Information</div>
+						<div class="card-body">
+							<div class="info-item">
+								<strong>Aadhaar Number:</strong> <span><%=tenant.getAadhaarNumber()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Email:</strong> <span><%=tenant.getEmail()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Flat Type:</strong> <span><%=tenant.getFlatType()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Flat Floor:</strong> <span><%=tenant.getFlatFloor()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Family Members:</strong> <span><%=tenant.getFamilyNembers()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Date of Joining:</strong> <span><%=tenant.getDateOfJoining()%></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 mb-4">
+					<div class="card">
+						<div class="card-header">Financial Information</div>
+						<div class="card-body">
+							<div class="info-item">
+								<strong>Advance Amount:</strong> <span><%=tenant.getAdvanceAmount()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Advance Status:</strong> <span><%=tenant.getAdvanceStatus()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Rent Amount:</strong> <span><%=tenant.getRentAmount()%></span>
+							</div>
+							<div class="info-item">
+								<strong>Rent Status:</strong> <span><%=tenant.getRentAmountStatus()%></span>
+							</div>
+							<div class="info-item">
+								<strong>EB Bill:</strong> <span><%=tenant.getEbBill()%></span>
+							</div>
+							<div class="info-item">
+								<strong>EB Bill Status:</strong> <span><%=tenant.getEbBillStatus()%></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<%
+			} else {
+			%>
+			<p>No tenants found.</p>
+			<%
+			}
+			%>
+			<%
+			}
+			%>
 
 	<!-- Bootstrap JS and dependencies -->
 	<script

@@ -136,20 +136,20 @@ h2 {
 	%>
 	<div class="sidebar">
 		<img style="padding-bottom: 30px;" width="230" height="150"
-			src="./img/logo.png" alt=""> <br>
+			src="img/logo.png" alt=""> <br>
 		<ul class="nav flex-column">
 			<li class="nav-item"><img width="30" height="30"
 				src="img/search.png" alt="Profile" /> <a class="nav-link active"
-				href="SearchTenantServlet" data-target="profile">View Tenant</a></li>
+				href="/search?type=1" data-target="profile">View Tenant</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/addicon.png" alt="Add Tenant" /> <a class="nav-link"
 				href="addTenant.jsp">Add Tenant</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
-				href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a></li>
+				href="/search?type=2" data-target="addEBBill">Add EB-Bill</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/visitor.png" alt="Visitors" /> <a class="nav-link"
-				href="VisitorServlet" data-target="visitors">Visitors</a></li>
+				href="/viewVisitor" data-target="visitors">Visitors</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/complain.png" alt="Complains" /> <a class="nav-link"
 				href="complain.jsp" data-target="complains">Complains</a></li>
@@ -158,7 +158,7 @@ h2 {
 				href="chat.jsp" data-target="chat">chat</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/event.png" alt="Events" /> <a class="nav-link"
-				href="event.jsp" data-target="addEvents">Add Events</a></li>
+				href="/events" data-target="addEvents">Add Events</a></li>
 			<li class="nav-item"><img width="30" height="30"
 				src="img/logout.png" alt="Logout" /> <a class="nav-link"
 				href="LogoutServlet">Log-Out</a></li>
@@ -167,9 +167,9 @@ h2 {
 
 	<div class="content">
 		<div class="container-fluid">
-			<div class="row mt-3">
-				<div class="col-md-6">
-					<form action="/searchTenants?type=2" method="get">
+			<form action="/search?type=2" method="get">
+				<div class="row mt-3">
+					<div class="col-md-6">
 						<div class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="search-addon"><i
@@ -177,19 +177,18 @@ h2 {
 							</div>
 							<input type="text" name="query" class="form-control"
 								placeholder="Search" aria-label="Search"
-								aria-describedby="search-addon"> 
-							<input type="hidden"
+								aria-describedby="search-addon"> <input type="hidden"
 								name="type" value="2" class="form-control" placeholder="Search"
 								aria-label="Search" aria-describedby="search-addon">
 						</div>
-				</div>
-				<div class="col-md-3">
-					<div class="input-group">
-						<button type="submit" class="btn btn-dark">Search</button>
+					</div>
+					<div class="col-md-3">
+						<div class="input-group">
+							<button type="submit" class="btn btn-dark">Search</button>
+						</div>
 					</div>
 				</div>
-				</form>
-			</div>
+			</form>
 			<div class="container tenant-info">
 				<!-- Form for deleting tenants -->
 				<!-- Display search results here -->

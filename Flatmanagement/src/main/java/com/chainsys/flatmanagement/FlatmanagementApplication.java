@@ -1,4 +1,4 @@
-package com.chainsys.flatmanagement;
+ package com.chainsys.flatmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

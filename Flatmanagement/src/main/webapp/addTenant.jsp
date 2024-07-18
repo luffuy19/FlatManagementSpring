@@ -126,12 +126,11 @@ h2 {
 	if(users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
-		<img style="padding-bottom: 30px;" width="230" height="150"
-			src="./img/logo.png" alt=""> <br>
-		<ul class="nav flex-column">
-			<li class="nav-item">
+        <img style="padding-bottom: 30px;" width="230" height="150" src="img/logo.png" alt=""> <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
                 <img width="30" height="30" src="img/search.png" alt="Profile" />
-                <a class="nav-link active" href="SearchTenantServlet" data-target="profile">View Tenant</a>
+                <a class="nav-link active" href="/search?type=1" data-target="profile">View Tenant</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/addicon.png" alt="Add Tenant" />
@@ -139,11 +138,11 @@ h2 {
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
-                <a class="nav-link" href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a>
+                <a class="nav-link" href="/search?type=2" data-target="addEBBill">Add EB-Bill</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
-                <a class="nav-link" href="VisitorServlet" data-target="visitors">Visitors</a>
+                <a class="nav-link" href="/viewVisitor" data-target="visitors">Visitors</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/complain.png" alt="Complains" />
@@ -155,7 +154,7 @@ h2 {
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/event.png" alt="Events" />
-                <a class="nav-link" href="event.jsp" data-target="addEvents">Add Events</a>
+                <a class="nav-link" href="/events" data-target="addEvents">Add Events</a>
             </li>
             <li class="nav-item">
                 <img width="30" height="30" src="img/logout.png" alt="Logout" />

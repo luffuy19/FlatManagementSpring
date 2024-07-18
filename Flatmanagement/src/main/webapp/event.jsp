@@ -175,35 +175,42 @@ h2 {
 	if (users.getRole().equals("admin")) {
 	%>
 	<div class="sidebar">
-		<img style="padding-bottom: 30px;" width="230" height="150"
-			src="./img/logo.png" alt=""> <br>
-		<ul class="nav flex-column">
-			<li class="nav-item"><img width="30" height="30"
-				src="img/search.png" alt="Profile" /> <a class="nav-link active"
-				href="SearchTenantServlet" data-target="profile">View Tenant</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/addicon.png" alt="Add Tenant" /> <a class="nav-link"
-				href="addTenant.jsp">Add Tenant</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
-				href="EBbillServlet" data-target="addEBBill">Add EB-Bill</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/visitor.png" alt="Visitors" /> <a class="nav-link"
-				href="VisitorServlet" data-target="visitors">Visitors</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/complain.png" alt="Complains" /> <a class="nav-link"
-				href="complain.jsp" data-target="complains">Complains</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/chat.png" alt="chat" /> <a class="nav-link"
-				href="chat.jsp" data-target="chat">chat</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/event.png" alt="Events" /> <a class="nav-link"
-				href="EventServlet" data-target="addEvents">Add Events</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/logout.png" alt="Logout" /> <a class="nav-link"
-				href="LogoutServlet">Log-Out</a></li>
-		</ul>
-	</div>
+        <img style="padding-bottom: 30px;" width="230" height="150" src="img/logo.png" alt=""> <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <img width="30" height="30" src="img/search.png" alt="Profile" />
+                <a class="nav-link active" href="/search?type=1" data-target="profile">View Tenant</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/addicon.png" alt="Add Tenant" />
+                <a class="nav-link" href="addTenant.jsp">Add Tenant</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
+                <a class="nav-link" href="/search?type=2" data-target="addEBBill">Add EB-Bill</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/visitor.png" alt="Visitors" />
+                <a class="nav-link" href="/viewVisitor" data-target="visitors">Visitors</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/complain.png" alt="Complains" />
+                <a class="nav-link" href="complain.jsp" data-target="complains">Complains</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/chat.png" alt="chat" />
+                <a class="nav-link" href="chat.jsp" data-target="chat">chat</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/event.png" alt="Events" />
+                <a class="nav-link" href="/events" data-target="addEvents">Add Events</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/logout.png" alt="Logout" />
+                <a class="nav-link" href="LogoutServlet">Log-Out</a>
+            </li>
+        </ul>
+    </div>
 
 	<div class="content">
 		<div class="container-fluid">
@@ -312,29 +319,34 @@ h2 {
 	} else {
 	%>
 	<div class="sidebar">
-		<img style="padding-bottom: 30px;" width="230" height="150"
-			src="img/logo.png" alt=""> <br>
-		<ul class="nav flex-column">
-			<li class="nav-item"><img width="30" height="30"
-				src="img/search.png" alt="Profile" /> <a class="nav-link active"
-				href="SearchTenantServlet" data-target="profile">Search</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/eb.png" alt="EB Bill" /> <a class="nav-link"
-				href="payment.jsp" data-target="addEBBill">payment</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/complain.png" alt="Complains" /> <a class="nav-link"
-				href="complain.jsp" data-target="complains">Complains</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/chat.png" alt="chat" /> <a class="nav-link"
-				href="chat.jsp" data-target="chat">chat</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/event.png" alt="Events" /> <a class="nav-link"
-				href="event.jsp" data-target="addEvents">Events</a></li>
-			<li class="nav-item"><img width="30" height="30"
-				src="img/logout.png" alt="Logout" /> <a class="nav-link"
-				href="LogoutServlet">Log-Out</a></li>
-		</ul>
-	</div>
+        <img style="padding-bottom: 30px;" width="230" height="150" src="img/logo.png" alt=""> <br>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <img width="30" height="30" src="img/profileicon.png" alt="Profile" />
+                <a class="nav-link active" href="/search?type=1" data-target="profile">Profile</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/eb.png" alt="EB Bill" />
+                <a class="nav-link" href="/payment" data-target="addEBBill">payment</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/complain.png" alt="Complains" />
+                <a class="nav-link" href="complain.jsp" data-target="complains">Complains</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/chat.png" alt="chat" />
+                <a class="nav-link" href="chat.jsp" data-target="chat">chat</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/event.png" alt="Events" />
+                <a class="nav-link" href="/events" data-target="addEvents">Events</a>
+            </li>
+            <li class="nav-item">
+                <img width="30" height="30" src="img/logout.png" alt="Logout" />
+                <a class="nav-link" href="LogoutServlet">Log-Out</a>
+            </li>
+        </ul>
+    </div>
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row mt-3">
